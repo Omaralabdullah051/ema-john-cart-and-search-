@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, NavigationType, useLocation, useNavigate } from 'react-router-dom';
 import auth from '../../firebase.init';
 import './Login.css';
 import { } from '@fortawesome/free-solid-svg-icons';
@@ -28,9 +28,11 @@ const Login = () => {
         signInWithEmailAndPassword(email, password);
     }
 
-    if (user || googleUser) {
-        navigate(from, { replace: true });
-    }
+    useEffect(() => {
+        if (user || googleUser) {
+            navigate(from, { replace: true });
+        }
+    }, [user, googleUser, navigate, from]);
 
     const handleGoogleSignIn = () => {
         signInWithGoogle();
@@ -43,11 +45,11 @@ const Login = () => {
                 <form onSubmit={handleUserSignIn}>
                     <div className='input-group'>
                         <label htmlFor="email">Email</label>
-                        <input onBlur={handleEmailBlur} type="email" name="email" id="" required />
+                        <input onBlur={handleEmailBlur} type="email" name="email" id="email" required />
                     </div>
                     <div className="input-group">
                         <label htmlFor="password">Password</label>
-                        <input onBlur={handlePasswordBlur} type="password" name="password" id="" required />
+                        <input onBlur={handlePasswordBlur} type="password" name="password" id="password" required />
                     </div>
                     <p style={{ color: 'red' }}>{error?.message || ''} </p>
                     {

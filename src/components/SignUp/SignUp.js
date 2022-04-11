@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useCreateUserWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import auth from '../../firebase.init';
@@ -25,9 +25,11 @@ const SignUp = () => {
         setConfirmPassword(event.target.value);
     }
 
-    if (googleUser || user) {
-        navigate('/shop');
-    }
+    useEffect(() => {
+        if (googleUser || user) {
+            navigate('/shop');
+        }
+    }, [user, googleUser, navigate]);
 
     const handleCreateUser = event => {
         event.preventDefault();
@@ -56,15 +58,15 @@ const SignUp = () => {
                 <form onSubmit={handleCreateUser}>
                     <div className='input-group'>
                         <label htmlFor="email">Email</label>
-                        <input onBlur={handleEmailBlur} type="email" name="email" id="" required />
+                        <input onBlur={handleEmailBlur} type="email" name="email" id="email" required />
                     </div>
                     <div className="input-group">
                         <label htmlFor="password">Password</label>
-                        <input onBlur={handlePasswordBlur} type="password" name="password" id="" required />
+                        <input onBlur={handlePasswordBlur} type="password" name="password" id="password" required />
                     </div>
                     <div className="input-group">
                         <label htmlFor="confirm-password">Confirm Password</label>
-                        <input onBlur={handleConfirmPasswordBlur} type="password" name="confirm-password" id="" required />
+                        <input onBlur={handleConfirmPasswordBlur} type="password" name="confirm-password" id="confirm-password" required />
                     </div>
                     <p style={{ color: 'red' }}>{error}</p>
                     <p style={{ color: 'red' }}>{hookError?.message}</p>
