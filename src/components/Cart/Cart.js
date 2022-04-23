@@ -2,6 +2,7 @@ import React from 'react';
 import './Cart.css'
 const Cart = (props) => {
     const { cart } = props;
+    console.log(cart);
 
     //using for loop 
     let total = 0;
