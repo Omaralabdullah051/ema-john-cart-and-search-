@@ -9,7 +9,7 @@ const useCart = () => {
         const storedCart = getStoredCart();
         const savedCart = [];
         const keys = Object.keys(storedCart);
-        fetch(' https://quiet-forest-56374.herokuapp.com/productByKeys', {
+        fetch('https://murmuring-woodland-97888.herokuapp.com/productByKeys', {
             method: "POST",
             headers: {
                 'Content-type': 'application/json'
